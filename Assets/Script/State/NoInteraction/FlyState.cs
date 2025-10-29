@@ -4,28 +4,29 @@ using UnityEngine;
 
 public class FlyState : IBirdState
 {
-    public void Enter()
+    public void Enter(Bird bird)
     {
-        throw new NotImplementedException();
-    }
-    public void Update()
-    {
+        Debug.Log("Enters : {nameof(FlyState)}");
 
     }
 
-
-    public void FixedUpdate()
+    public void Update(Bird bird)
     {
-        throw new NotImplementedException();
+        Debug.Log("미구현");
+    }
+    public void FixedUpdate(Bird bird)
+    {
+        Debug.Log("미구현");
+    }
+    public void OnDone(Bird bird)
+    {
+        //완료 후 행동 없음 
     }
 
-    public void OnDone()
+
+    public void Exit(Bird bird)
     {
-        throw new NotImplementedException();
-    }
-    public void Exit()
-    {
-        throw new NotImplementedException();
+        Debug.Log("Exits : {nameof(FlyState)}");
     }
 
 }

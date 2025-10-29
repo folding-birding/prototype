@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.VersionControl.Asset;
 
-// bird 객체 관련 정보용 
+// bird 객체 관련 값
 // speed, direction 등 
 
 public class Bird : MonoBehaviour 
 {
     public Bird instance { get { return instance; } }
-    public BirdStateMachine stateMachine { get; private set; }
-    public Rigidbody rigidBody { get; private set; }    
+    public BirdStateMachine _birdStateMachine { get; private set; }
+    public IBirdState _currentState;
 
+    [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private Animator _animator;
     public Animator Animator
     {
@@ -42,42 +44,26 @@ public class Bird : MonoBehaviour
     [SerializeField] private GameObject _spotContainer;
     [SerializeField] private List<Spot> _perchingSpots;
 
-    void Awake()
-    {
-        if(instance == null)
-        {
-            instance = this;
-            rigidBody = GetComponent<Rigidbody>();
-           
-        }
-    }
 
-    //상태 전환 체크 
+    public void Awake()
+    {
+        _birdStateMachine = GetComponent<BirdStateMachine>();
+        _rigidBody = GetComponent<Rigidbody>();
+
+    }
 
     public void Start()
     {
-        InitStateMachine();
 
-    }
+        _birdStateMachine.AddState(StateEnum.Idle, new IdleState());
+        _birdStateMachine.AddState(StateEnum.Fly, new FlyState());
+        //상태 추가시 반드시 생성 
 
-    private void Update()
-    {
-        stateMachine?.UpdateState();
-    }
+        _birdStateMachine.SetState(StateEnum.Idle);
 
-    private void FixedUpdate()
-    {
-        stateMachine?.FixedupdateState();
-    }
+        /*Add State 체크 
+        Debug.Log("States Count: " + _birdStateMachine.states.Count);
+        Debug.Log("Current State" + _birdStateMachine.CurrentState.ToString()); */
 
-    private void OnDone()
-    {
-        stateMachine?.OnDoneState();
-    }
-
-    //상태 등록 
-    private void InitStateMachine()
-    {
-        throw new NotImplementedException();
     }
 }

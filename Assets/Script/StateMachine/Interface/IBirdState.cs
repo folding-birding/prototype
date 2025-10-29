@@ -1,17 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 
 //Bird State 기본 interface
 public interface IBirdState
 {
-    void Enter();
+    void Enter(Bird bird);
 
-    void Update();
+    void Update(Bird bird);
 
-    void FixedUpdate();
+    void FixedUpdate(Bird bird);
 
-    void OnDone();
+    void OnDone(Bird bird);
 
-    void Exit();
-   
+    void Exit(Bird bird);
+
 }

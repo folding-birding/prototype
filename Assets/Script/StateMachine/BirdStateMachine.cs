@@ -1,52 +1,48 @@
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
 //StateEnum내의 State Name과 instance를 Dictionary로 관리 
 
-public class BirdStateMachine
+public class BirdStateMachine : MonoBehaviour 
 {
-    public IBirdState CurrentState { get; private set; }
-    
-    private Dictionary<StateEnum, IBirdState> states = new Dictionary<StateEnum, IBirdState>();
+    public Bird bird { get; private set; }
+    public IBirdState CurrentState { get; set; }
 
-    public BirdStateMachine(StateEnum stateEnum, IBirdState state)
+    public Dictionary<StateEnum, IBirdState> states;
+
+    private void Awake()
     {
-        AddState(stateEnum, state);
-
+        bird = GetComponent<Bird>();
+        states = new Dictionary<StateEnum, IBirdState>();
+    }
+    public void Update()
+    {
+        UpdateState();
     }
 
-    //미등록된 State 자동 등록 
+    //상태 등록
     public void AddState(StateEnum stateEnum, IBirdState state)
     {
-        if (!states.ContainsKey(stateEnum))
+        if (states.ContainsKey(stateEnum)) return;
+
+        states.Add(stateEnum, state);
+    }
+
+    //상태 세팅-전환 
+    public void SetState(StateEnum stateEnum)
+    {
+        if(states.ContainsKey(stateEnum))
         {
-            states.Add(stateEnum, state);
-            CurrentState = GetState(stateEnum);
+            if(CurrentState != null)
+            {
+                CurrentState.Exit(bird);
+            }
+            CurrentState = states[stateEnum];
+            CurrentState?.Enter(bird); 
         }
     }
-
-    public IBirdState GetState(StateEnum stateEnum)
-    {
-        if (states.TryGetValue(stateEnum, out IBirdState state))
-            return state;
-        return null;
-    }
-
-    //상태 전환 : 종료 후 다음 state 취함 
-    public void ChangeState(StateEnum nextstateName)
-    {
-        CurrentState?.Exit();
-
-        if(states.TryGetValue(nextstateName, out IBirdState newState))
-        {
-            CurrentState = newState;
-        }
-
-        CurrentState?.Enter();
-    }
-
 
     //중복 상태 방지 
     public void DeleteState(StateEnum stateEnum)
@@ -59,17 +55,17 @@ public class BirdStateMachine
 
     public void OnDoneState()
     {
-        CurrentState?.OnDone();
+        CurrentState?.OnDone(bird);
     }
 
     public void UpdateState()
     {
-        CurrentState?.Update();
+        CurrentState?.Update(bird);
     }
 
     public void FixedupdateState()
     {
-        CurrentState?.FixedUpdate();
+        CurrentState?.FixedUpdate(bird);
     }
 }
 

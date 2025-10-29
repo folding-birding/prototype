@@ -1,16 +1,31 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
-public class FlyState : MonoBehaviour
+public class FlyState : IBirdState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Enter()
     {
-        
+        throw new NotImplementedException();
+    }
+    public void Update()
+    {
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void FixedUpdate()
     {
-        
+        throw new NotImplementedException();
     }
+
+    public void OnDone()
+    {
+        throw new NotImplementedException();
+    }
+    public void Exit()
+    {
+        throw new NotImplementedException();
+    }
+
 }

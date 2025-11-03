@@ -8,9 +8,9 @@ using UnityEngine;
 public class BirdStateMachine : MonoBehaviour 
 {
     public Bird bird { get; private set; }
-    public IBirdState CurrentState { get; set; }
+    public IBirdState CurrentState { get; private set; }
 
-    public Dictionary<StateEnum, IBirdState> states;
+    private Dictionary<StateEnum, IBirdState> states;
 
     private void Awake()
     {

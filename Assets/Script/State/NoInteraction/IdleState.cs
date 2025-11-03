@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+//Idle -> Fly
+
 public class IdleState : IBirdState
 {
     public void Enter(Bird bird)
@@ -11,9 +13,8 @@ public class IdleState : IBirdState
     public void Update(Bird bird)
     {
         //bird.Animator.SetTrigger("ToFly");
-
         Debug.Log(" Idle no problem");
-        bird._birdStateMachine.SetState(StateEnum.Fly);
+        bird.BirdStateMachine.SetState(StateEnum.Fly);
     }
 
     public void FixedUpdate(Bird bird)
@@ -23,7 +24,7 @@ public class IdleState : IBirdState
 
     public void OnDone(Bird bird)
     {
-        //완료 후 행동 없음 
+        //없음 
     }
 
     public void Exit(Bird bird)

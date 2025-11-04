@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StrokeState
+public class ByeState
 {
     
 }

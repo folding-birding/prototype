@@ -1,16 +1,26 @@
 using UnityEngine;
 
-public class WanderState : MonoBehaviour
+//Fly -> Wander 
+public class WanderState : IBirdState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Enter(Bird bird)
     {
-        
+        Debug.Log($"{bird.name} Enters : {nameof(WanderState)}");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Exit(Bird bird)
     {
-        
+        throw new System.NotImplementedException();
     }
+
+    public void FixedUpdate(Bird bird)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Update(Bird bird)
+    {
+        throw new System.NotImplementedException();
+    }
+
 }

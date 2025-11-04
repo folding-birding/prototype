@@ -7,10 +7,10 @@ public enum StateEnum
     Idle,
     Fly,
     Wander,
-    Perch,
+    Sit,
     Follow,
     Handle,
-    Stroke,
+    Feel,
     Release,
     Boid
 }

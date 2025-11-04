@@ -1,7 +1,12 @@
+using Meta.WitAi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 //Bird 움직임 관련 
 public class BirdBehaviour : MonoBehaviour 
@@ -15,42 +20,66 @@ public class BirdBehaviour : MonoBehaviour
     private float _speed;
     private Rigidbody _rb;
 
-    private void Awake()
+    private GameObject _ParticlePrefab;
+    private List<Spot> _perchingSpots;
+
+    private void Start()
     {
+        bird = GetComponent<Bird>();
+
         if (bird != null)
         {
-            _target = bird._target;
-            _direction = bird._direction;
+            _rb = bird.RigidBody;
+
+            _target = bird.Birdtarget;
+            _direction = bird.Direction;
             _detection = bird.Detection;
             _rotationSpeed = bird.RotationSpeed;
             _speed = bird.Speed;
-            _rb = bird.RigidBody;
+
+            _ParticlePrefab = bird.ParticlePrefab;
         }
     }
 
-    public IEnumerator HangAround(Action<BirdBehaviour> onDone)
+    //Fly-wander 분리
+    //FlyAround : Fly With Avoid 
+    public IEnumerator FlyAround(Action<BirdBehaviour> onDone)
     {
-        float waitTime = UnityEngine.Random.Range(5f, 15f);
-        yield return new WaitForSeconds(waitTime);
-        onDone?.Invoke(this);
+  
+        yield return null;
+    }
+    public IEnumerator WanderAround(Action<BirdBehaviour> onDone)
+    {
+
+        yield return null;
+    }
+    public IEnumerator FollowTo(Action<BirdBehaviour> onDone)
+    {
+        //Follow
+;       yield return null;
     }
 
-
-    public IEnumerator HoverAround(Action<BirdBehaviour> onDone)
-    {
-        while (true)
+    //Feeling : Particle 
+    public IEnumerator Feeling(Action <Bird>onDone)
+    {   
+        GameObject HeartParticle = Instantiate(_ParticlePrefab,bird.transform.position, Quaternion.identity);
+        ParticleSystem ps = HeartParticle.GetComponent<ParticleSystem>();
+        
+        if(ps != null)
         {
-            Vector3 toTarget = _target.position - transform.position;
-            float distanceToTarget = toTarget.magnitude;
-            float factor = Mathf.Clamp01(distanceToTarget / _detection);
-
-            _direction = Vector3.SlerpUnclamped(_direction, toTarget.normalized, Time.deltaTime).normalized;
-
-            Quaternion rot = Quaternion.LookRotation(_direction, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, _rotationSpeed * Time.deltaTime);
-            transform.position += transform.forward * _speed * Time.deltaTime;
-
-            yield return null;
+            ps.Play();
+            yield return new WaitForSeconds(4.0f);
         }
+
+        onDone?.Invoke(bird);
+
     }
+
+
+    //Spot 탐색 
+    //public Spot FindSittingSpot()
+
+
+    //public IEnumerator Wander()
+
 }

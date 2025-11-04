@@ -8,18 +8,21 @@ public class FlyState : IBirdState
 {
     public void Enter(Bird bird)
     {
-        Debug.Log("Enters : {nameof(FlyState)}");
+        Debug.Log($"{bird.name} Enters : {nameof(FlyState)}");
+        Time.timeScale = 1.0f;
        
     }
     public void Update(Bird bird)
     {
-        Debug.Log("구현중");
+        
     }
     public void FixedUpdate(Bird bird)
     {
-
-        Debug.Log("비행 구현은 FixedUpdate로 예정");
-
+        Debug.Log("FixedUpdate 작동 중! Time Scale: " + Time.timeScale);
+        while (true)
+        {
+            bird.RigidBody.AddForce(bird.transform.forward * 0.3f);
+        }
     }
     public void OnDone(Bird bird)
     {
@@ -29,7 +32,10 @@ public class FlyState : IBirdState
 
     public void Exit(Bird bird)
     {
-        Debug.Log("Exits : {nameof(FlyState)}");
+        Debug.Log($"{bird.name} Exits : {nameof(FlyState)}");
+        
+        //bird.BirdStateMachine.SetState(StateEnum.Wander);
+        //bird.BirdStateMachine.SetState(StateEnum.Sit);
     }
 
 }

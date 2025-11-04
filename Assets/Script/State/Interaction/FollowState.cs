@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FeelState
+public class FollowState
 {
     
 }

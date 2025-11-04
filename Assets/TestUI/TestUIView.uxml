@@ -1,7 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:RadioButton label="Following" style="width: 191px;" />
     <ui:RadioButton label="Handling" style="width: 191px;" />
-    <ui:RadioButton label="Feeling" style="width: 191px;" />
+    <ui:RadioButton label="Feeling" data-source="project://database/Assets/TestUI/TestUI.asset?fileID=11400000&amp;guid=751b270014cdb734d8edf5bd9ebd8611&amp;type=2#TestUI" value="false" toggle-on-label-click="false" data-source-path="isFeeling" enabled="true" focusable="true" tabindex="1" style="width: 191px; align-items: auto; flex-direction: row; justify-content: flex-end; align-self: flex-start; height: 24px;">
+        <Bindings>
+            <ui:DataBinding property="value" data-source-path="isFeeling" binding-mode="ToTarget" />
+        </Bindings>
+    </ui:RadioButton>
     <ui:RadioButton label="Boid" style="width: 191px;" />
     <ui:RadioButton label="Bye" style="width: 191px;" />
 </ui:UXML>

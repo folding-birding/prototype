@@ -30,8 +30,6 @@ public class IdleState : IBirdState
     public void Exit(Bird bird)
     {
         Debug.Log("Exits : {nameof(IdleState)}");
-
-        //bird.BehaviourCoroutine = null;
     }
 
 }

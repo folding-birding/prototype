@@ -52,12 +52,6 @@ public class BirdStateMachine : MonoBehaviour
             states.Remove(stateEnum);
         }
     }
-
-    public void OnDoneState()
-    {
-        CurrentState?.OnDone(bird);
-    }
-
     public void UpdateState()
     {
         CurrentState?.Update(bird);

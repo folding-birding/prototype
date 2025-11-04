@@ -1,11 +1,10 @@
 using UnityEngine;
 
-//Fly -> Wander 
-public class WanderState : IBirdState
+public class SitState : IBirdState
 {
     public void Enter(Bird bird)
     {
-        Debug.Log($"{bird.name} Enters : {nameof(WanderState)}");
+        throw new System.NotImplementedException();
     }
 
     public void Exit(Bird bird)
@@ -18,9 +17,13 @@ public class WanderState : IBirdState
         throw new System.NotImplementedException();
     }
 
-    public void Update(Bird bird)
+    public void OnDone(Bird bird)
     {
         throw new System.NotImplementedException();
     }
 
+    public void Update(Bird bird)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -16,6 +16,18 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 859072393755575647, guid: 79362081d2a183144b188514ec8f2ad3, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859072393755575647, guid: 79362081d2a183144b188514ec8f2ad3, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859072393755575647, guid: 79362081d2a183144b188514ec8f2ad3, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2532636027918414297, guid: 79362081d2a183144b188514ec8f2ad3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -62,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e7fdf94ce1e7f78479dbeb2a74ec7d2f, type: 2}
     - target: {fileID: 9200348650713695493, guid: 79362081d2a183144b188514ec8f2ad3, type: 3}
       propertyPath: m_Name
-      value: Feeling Particle Variant
+      value: Note
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

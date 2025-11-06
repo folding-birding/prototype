@@ -9,7 +9,7 @@ public interface IBirdState
 
     void Update(Bird bird);
 
-    void FixedUpdate(Bird bird);
+    void OnDone(Bird bird);
 
     void Exit(Bird bird);
 

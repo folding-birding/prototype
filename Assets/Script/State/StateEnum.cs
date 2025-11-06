@@ -6,7 +6,6 @@ public enum StateEnum
 {
     Idle,
     Fly,
-    Wander,
     Sit,
     Follow,
     Handle,

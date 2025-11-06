@@ -15,8 +15,6 @@ public class Bird : MonoBehaviour
     public BirdStateMachine BirdStateMachine { get; private set; }
     public IBirdState CuurrentState { get; private set; }
 
-    [SerializeField] private Rigidbody rigidBody;
-    public Rigidbody RigidBody => rigidBody;
     [SerializeField] private Animator _animator;
     public Animator Animator
     {
@@ -57,41 +55,66 @@ public class Bird : MonoBehaviour
 
     [Header("Wander")]
     [SerializeField] private float _wanderStrength;
+    public float WanderStrength => _wanderStrength;
     [SerializeField] private float _nextWanderTime;
+    public float NextWanderTime => _nextWanderTime;
 
     [Header("Avoidance")]
     [SerializeField] private float _minAvoidStrength;
+    public float MinAvoidStrength => _minAvoidStrength;
     [SerializeField] private float _maxAvoidStrength;
+    public float MaxAvoidStrength => _maxAvoidStrength;
 
     [Header("Spot")]
+    [SerializeField] private Spot _curSpot;
+    public Spot CurSpot
+    {
+        get { return _curSpot; }
+        set { _curSpot = value; }
+    }
+    [SerializeField] private Spot _preSpot;
+    public Spot PreSpot
+    {
+        get { return _preSpot; }
+        set { _preSpot = value; }
+    }
+
     [SerializeField] private GameObject _spotContainer;
-    public List<Spot> _perchingSpots {  get; private set; }
-   
+    [SerializeField] private List<Spot> _sittingSpots;
+    public List<Spot> SittingSpots => _sittingSpots;
 
     [Header("TestUI")]
     [SerializeField] private ScriptableObject TestUI;
+
+    //Component 초기화 & Spot transform 자동 할당  
     public void Awake()
     {
         Behaviour = GetComponent<BirdBehaviour>();
         BirdStateMachine = GetComponent<BirdStateMachine>();
-        rigidBody = GetComponent<Rigidbody>();
-    }
 
+        if (_spotContainer != null)
+        {
+            for (int i = 0; i < _spotContainer.transform.childCount; i++)
+            {
+                _sittingSpots.Add(_spotContainer.transform.GetChild(i).GetComponent<Spot>());
+            }
+           transform.rotation = UnityEngine.Random.rotation;
+           _direction = transform.forward;
+          
+        }
+    }
+    //State 등록 
     public void Start()
     {
         //상태 추가시 반드시 Add States로 추가할것  
-        //No Interaction State
         BirdStateMachine.AddState(StateEnum.Idle, new IdleState());
         BirdStateMachine.AddState(StateEnum.Fly, new FlyState());
-        BirdStateMachine.AddState(StateEnum.Wander, new WanderState());
         BirdStateMachine.AddState(StateEnum.Sit, new SitState());
 
         //Interaction State
         BirdStateMachine.AddState(StateEnum.Feel, new FeelState());
 
-        //최초 상태 :Idle 
         BirdStateMachine.SetState(StateEnum.Idle);
-
         /*Add State 체크 
         Debug.Log("States Count: " + _birdStateMachine.states.Count);
         Debug.Log("Current State" + _birdStateMachine.CurrentState.ToString()); */

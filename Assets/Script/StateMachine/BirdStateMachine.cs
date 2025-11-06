@@ -57,10 +57,6 @@ public class BirdStateMachine : MonoBehaviour
         CurrentState?.Update(bird);
     }
 
-    public void FixedupdateState()
-    {
-        CurrentState?.FixedUpdate(bird);
-    }
 }
 
 
